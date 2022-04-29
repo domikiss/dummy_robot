@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find dummy_robot_gazebo)/worlds/smallroom.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+  <!-- Dummy moving robot 1 -->
+
+  <group ns="dummy_robot_1">
+    <!-- URDF definition -->
+    <param name="dummy_robot_description" command="$(find xacro)/xacro --inorder '$(find dummy_robot_description)/urdf/dummy_robot.urdf.xacro'"/>
+    <!-- Spawn robot -->
+    <node name="dummy_robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param dummy_robot_description -model moving_object_1 -x 3.0 -y 0.0 -z 0.0 -Y 1.5708" />
+  </group>
+
+  <!-- Dummy moving robot 2 -->
+
+  <group ns="dummy_robot_2">
+    <!-- URDF definition -->
+    <param name="dummy_robot_description" command="$(find xacro)/xacro --inorder '$(find dummy_robot_description)/urdf/dummy_robot.urdf.xacro'"/>
+    <!-- Spawn robot -->
+    <node name="dummy_robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param dummy_robot_description -model moving_object_2 -x 1.5 -y 0.0 -z 0.0 -Y -1.5708" />
+  </group>
+
+  <!-- Publish velocities for the dummy robots -->
+  <node pkg="rostopic" type="rostopic" name="dummy_robot_1_vel_publisher" args="pub /dummy_robot_1/cmd_vel geometry_msgs/Twist '{linear: {x: 1.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.3333}}'"/>
+  <node pkg="rostopic" type="rostopic" name="dummy_robot_2_vel_publisher" args="pub /dummy_robot_2/cmd_vel geometry_msgs/Twist '{linear: {x: 0.3333, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: -0.2222}}'"/>
+
+
+</launch>
