@@ -7,19 +7,19 @@
 
 
 <!-- ============ 'base_footprint' is the ground link ===================== -->
-  <link name="base_footprint"/>
+  <link name="dummy_base_footprint"/>
 
   <joint name="base_joint" type="fixed">
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
-    <!-- base_link is placed at the center of gravity of GoPiGo3 body -->
+    <parent link="dummy_base_footprint"/>
+    <child link="dummy_base_link"/>
+    <!-- dummy_base_link is placed at the center of gravity of GoPiGo3 body -->
     <origin xyz="0 0 0.075" rpy="0 0 0"/>
   </joint>
 
-<!-- ============ 'base_link' simulates GoPiGo3 body mass and moment of inertia
+<!-- ============ 'dummy_base_link' simulates GoPiGo3 body mass and moment of inertia
                    and act as the robot reference frame =================== -->
-  <link name="base_link">
-  <!-- **** 'base_link' COLLISION & INERTIA **** -->
+  <link name="dummy_base_link">
+  <!-- **** 'dummy_base_link' COLLISION & INERTIA **** -->
     <collision>
       <origin xyz="-0.038 0 0.07" rpy="0 0 0"/>
       <geometry>
@@ -47,7 +47,7 @@
 
 <!-- ============ wheel_left ====================== -->
   <joint name="wheel_left_joint" type="continuous">
-    <parent link="base_link"/>
+    <parent link="dummy_base_link"/>
     <child link="wheel_left_link"/>
     <origin xyz="0 0.089 -0.042" rpy="0 0 1.57"/>
     <axis xyz="1 0 0"/>
@@ -80,7 +80,7 @@
 
 <!-- ============ wheel_right ====================== -->
   <joint name="wheel_right_joint" type="continuous">
-    <parent link="base_link"/>
+    <parent link="dummy_base_link"/>
     <child link="wheel_right_link"/>
     <origin xyz="0 -0.089 -0.042" rpy="0 0 -1.57"/>
     <axis xyz="-1 0 0"/>
@@ -113,7 +113,7 @@
 
 <!-- ============ caster_back ====================== -->
   <joint name="caster_back_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="dummy_base_link"/>
     <child link="caster_back_link"/>
     <origin xyz="-0.132 0 -0.075" rpy="0 0 0"/>
   </joint>
