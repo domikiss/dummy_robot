@@ -6,7 +6,7 @@
   <xacro:property name="CADscale" value="0.0012" />
 
 
-<!-- ============ 'base_footprint' is the ground link ===================== -->
+<!-- ============ 'dummy_base_footprint' is the ground link ===================== -->
   <link name="dummy_base_footprint"/>
 
   <joint name="base_joint" type="fixed">
